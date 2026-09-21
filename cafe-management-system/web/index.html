@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Coffee Pavilion</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"> Agri Coffee Pavilion</div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="menu">เมนู &amp; สั่งซื้อ</button>
+    <button class="tab-btn" data-tab="reservation">จองโต๊ะ</button>
+    <button class="tab-btn" data-tab="status">ติดตามออเดอร์</button>
+    <button class="tab-btn" data-tab="staff">สำหรับพนักงาน</button>
+  </nav>
+</header>
+
+<main>
+
+  <section id="tab-menu" class="tab-panel active">
+    <div class="menu-layout">
+      <div class="menu-list-wrap">
+        <h2>เมนูร้าน</h2>
+        <div class="category-filter" id="categoryFilter"></div>
+        <div id="productList" class="product-grid"></div>
+      </div>
+
+      <aside class="cart-box">
+        <h2>ตะกร้าของคุณ</h2>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-total">รวม: <span id="cartTotal">0.00</span> บาท</div>
+
+      
+        <div class="form-row">
+          <label>รับสินค้าแบบ</label>
+          <select id="pickupType">
+            <option value="TAKEAWAY">ซื้อกลับ</option>
+            <option value="DINE_IN">นั่งที่ร้าน</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>เวลารับสินค้า</label>
+          <input type="time" id="pickupTime">
+        </div>
+
+        <button class="btn-primary" id="btnCheckout">ยืนยันสั่งซื้อ</button>
+        <p class="hint" id="orderResultMsg"></p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="tab-reservation" class="tab-panel">
+    <h2>จองโต๊ะ</h2>
+    <div class="reservation-layout">
+      <form id="reservationForm" class="card-form">
+        <div class="form-row">
+          <label>วันที่</label>
+          <input type="date" id="resDate" required>
+        </div>
+        <div class="form-row">
+          <label>เวลา</label>
+          <input type="time" id="resTime" required>
+        </div>
+        <div class="form-row">
+          <label>จำนวนคน</label>
+          <input type="number" id="resPeople" min="1" value="2" required>
+        </div>
+        <div class="form-row">
+          <label>เลือกโต๊ะ</label>
+          <select id="resTable"></select>
+        </div>
+        <button type="submit" class="btn-primary">จองโต๊ะ</button>
+        <p class="hint" id="reservationResultMsg"></p>
+      </form>
+
+      <div class="table-grid" id="tableGrid"></div>
+    </div>
+  </section>
+
+  <section id="tab-status" class="tab-panel">
+    <h2>ติดตามสถานะออเดอร์</h2>
+    <div class="status-search">
+      <input type="number" id="orderIdInput" placeholder="กรอกหมายเลขออเดอร์ เช่น 1">
+      <button class="btn-primary" id="btnSearchOrder">ค้นหา</button>
+    </div>
+    <div id="orderStatusResult"></div>
+  </section>
+
+  <section id="tab-staff" class="tab-panel">
+    <h2>สำหรับพนักงาน</h2>
+    <nav class="subtabs">
+      <button class="subtab-btn active" data-subtab="staffOrders">ออเดอร์ทั้งหมด</button>
+      <button class="subtab-btn" data-subtab="staffMenu">จัดการเมนู</button>
+      <button class="subtab-btn" data-subtab="staffReservations">จัดการการจอง</button>
+      <button class="subtab-btn" data-subtab="staffIngredients">วัตถุดิบ</button>
+      <button class="subtab-btn" data-subtab="staffReports">รายงาน</button>
+    </nav>
+
+    <div id="staffOrders" class="subtab-panel active">
+      <div id="staffOrderList"></div>
+    </div>
+
+    <div id="staffMenu" class="subtab-panel">
+      <h3>เพิ่มเมนูใหม่</h3>
+      <form id="addProductForm" class="card-form inline-form">
+        <input type="text" id="newProductName" placeholder="ชื่อเมนู" required>
+        <select id="newProductCategory">
+          <option value="เครื่องดื่ม">เครื่องดื่ม</option>
+          <option value="ของหวาน">ของหวาน</option>
+        </select>
+        <input type="number" id="newProductPrice" placeholder="ราคา" min="0" step="0.01" required>
+        <input type="text" id="newProductDesc" placeholder="คำอธิบาย">
+        <input type="url" id="newProductImage" placeholder="วาง URL รูปภาพที่นี่">
+        <button type="submit" class="btn-primary">เพิ่มเมนู</button>
+      </form>
+      <h3>เมนูทั้งหมด (แก้ไขราคา / เปิด-ปิดขาย)</h3>
+      <div id="staffProductList" class="staff-product-list"></div>
+    </div>
+
+    <div id="staffReservations" class="subtab-panel">
+      <div id="staffReservationList"></div>
+    </div>
+
+    <div id="staffIngredients" class="subtab-panel">
+      <h3>เพิ่มวัตถุดิบ</h3>
+      <form id="addIngredientForm" class="card-form inline-form">
+        <input type="text" id="newIngName" placeholder="ชื่อวัตถุดิบ" required>
+        <input type="text" id="newIngUnit" placeholder="หน่วย เช่น กรัม" required>
+        <input type="number" id="newIngQty" placeholder="จำนวนเริ่มต้น" min="0" step="0.01" required>
+        <input type="number" id="newIngMin" placeholder="ขั้นต่ำ" min="0" step="0.01" required>
+        <button type="submit" class="btn-primary">เพิ่มวัตถุดิบ</button>
+      </form>
+      <div id="ingredientList" class="staff-product-list"></div>
+    </div>
+
+    <div id="staffReports" class="subtab-panel">
+      <div id="reportSummary" class="report-summary"></div>
+
+      <h3>เพิ่มรายจ่าย</h3>
+      <form id="addExpenseForm" class="card-form inline-form">
+        <input type="text" id="expDesc" placeholder="รายการ" required>
+        <input type="number" id="expAmount" placeholder="จำนวนเงิน" min="0" step="0.01" required>
+        <input type="text" id="expCategory" placeholder="หมวดหมู่ เช่น ค่าวัตถุดิบ" required>
+        <button type="submit" class="btn-primary">บันทึกรายจ่าย</button>
+      </form>
+
+      <div class="report-columns">
+        <div>
+          <h3>รายรับ</h3>
+          <div id="incomeList"></div>
+        </div>
+        <div>
+          <h3>รายจ่าย</h3>
+          <div id="expenseList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+:root {
+  --brown-dark: #4a2c20;
+  --brown: #6f4e37;
+  --brown-light: #a9744f;
+  --cream: #faf3e9;
+  --cream-2: #f0e4d3;
+  --accent: #c98a3d;
+  --danger: #c0503a;
+  --ok: #4c7a4c;
+  --text: #3a2a20;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Sarabun", "Tahoma", sans-serif;
+  background: var(--cream);
+  color: var(--text);
+}
+
+.topbar {
+  background: var(--brown-dark);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.brand {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.tabs, .subtabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tab-btn, .subtab-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.15s;
+}
+
+.subtab-btn {
+  border-color: var(--brown-light);
+  color: var(--brown-dark);
+}
+
+.tab-btn:hover, .subtab-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.tab-btn.active, .subtab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.tab-panel, .subtab-panel { display: none; }
+.tab-panel.active, .subtab-panel.active { display: block; }
+
+h2 { color: var(--brown-dark); }
+h3 { color: var(--brown); margin-top: 24px; }
+
+/*เมนูกับตะกร้า*/
+.menu-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 800px) {
+  .menu-layout, .reservation-layout, .report-columns { grid-template-columns: 1fr; }
+}
+
+.category-filter {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.category-filter button {
+  border: 1px solid var(--brown-light);
+  background: white;
+  color: var(--brown-dark);
+  padding: 6px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.category-filter button.active {
+  background: var(--brown);
+  color: white;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-card .emoji { font-size: 2rem; }
+.product-card .pname { font-weight: bold; font-size: 1.05rem; }
+.product-card .pdesc { font-size: 0.85rem; color: #7a6a5c; min-height: 2.4em; }
+.product-card .pprice { color: var(--accent); font-weight: bold; }
+
+.product-card.unavailable { opacity: 0.5; }
+
+.btn-add {
+  margin-top: auto;
+  background: var(--brown);
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-add:hover { background: var(--brown-dark); }
+
+.cart-box {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 16px;
+  align-self: start;
+  position: sticky;
+  top: 16px;
+}
+
+.cart-items { min-height: 40px; margin-bottom: 10px; }
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--cream-2);
+  font-size: 0.9rem;
+}
+
+.cart-item button {
+  border: none;
+  background: var(--danger);
+  color: white;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.cart-total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: right;
+  margin: 10px 0;
+  color: var(--brown-dark);
+}
+
+.form-row { margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
+.form-row label { font-size: 0.85rem; color: #7a6a5c; }
+.form-row input, .form-row select {
+  padding: 8px;
+  border: 1px solid var(--cream-2);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  width: 100%;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.btn-primary:hover { background: var(--brown-dark); }
+
+.hint { font-size: 0.85rem; margin-top: 8px; color: var(--ok); min-height: 1.2em; }
+.hint.error { color: var(--danger); }
+
+/*จองโต๊ะ*/
+.reservation-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.card-form {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  align-content: start;
+}
+
+.table-chip {
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 14px 8px;
+  text-align: center;
+  background: white;
+}
+
+.table-chip.available { border-color: var(--ok); }
+.table-chip.taken { border-color: var(--danger); opacity: 0.6; }
+.table-chip .tstatus { font-size: 0.8rem; color: #7a6a5c; }
+
+/*ติดตามออเดอร์ พนักงาน*/
+.status-search {
+  display: flex;
+  gap: 8px;
+  max-width: 400px;
+  margin-bottom: 16px;
+}
+.status-search input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--cream-2);
+  border-radius: 6px;
+}
+.status-search button { width: auto; padding: 8px 18px; margin-top: 0; }
+
+.order-card, .res-card {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.order-card .ohead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  background: var(--cream-2);
+  color: var(--brown-dark);
+}
+
+.order-card .items { margin: 8px 0; font-size: 0.9rem; color: #55453a; }
+.order-card .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+.order-card .actions button, .res-card .actions button {
+  border: 1px solid var(--brown-light);
+  background: white;
+  color: var(--brown-dark);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.order-card .actions button:hover, .res-card .actions button:hover {
+  background: var(--brown);
+  color: white;
+}
+
+.inline-form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.inline-form input, .inline-form select {
+  padding: 8px;
+  border: 1px solid var(--cream-2);
+  border-radius: 6px;
+}
+.inline-form button { width: auto; margin-top: 0; padding: 8px 16px; }
+
+.staff-product-list { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+
+.staff-product-row {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.staff-product-row .spname { font-weight: bold; min-width: 140px; }
+.staff-product-row input[type=number] {
+  width: 90px;
+  padding: 6px;
+  border: 1px solid var(--cream-2);
+  border-radius: 6px;
+}
+.staff-product-row button {
+  border: none;
+  background: var(--brown);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.staff-product-row button.toggle-off { background: var(--danger); }
+
+.report-summary {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.report-box {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: var(--radius);
+  padding: 16px 22px;
+  text-align: center;
+  min-width: 140px;
+}
+.report-box .label { font-size: 0.85rem; color: #7a6a5c; }
+.report-box .value { font-size: 1.3rem; font-weight: bold; color: var(--brown-dark); }
+
+.report-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }
+.report-line {
+  background: white;
+  border: 1px solid var(--cream-2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+/*จบแล้ว ฮรือออ
